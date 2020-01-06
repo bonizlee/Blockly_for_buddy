@@ -223,8 +223,8 @@ Blockly.Arduino['math_change'] = function(block) {
       Blockly.Arduino.ORDER_ADDITION) || '0';
   var varName = Blockly.Arduino.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return varName + ' = (typeof ' + varName + ' == \'number\' ? ' + varName +
-      ' : 0) + ' + argument0 + ';\n';
+  //return varName + ' = (typeof ' + varName + ' == \'number\' ? ' + varName + ' : 0) + ' + argument0 + ';\n';
+  return varName + ' = ' + varName + ' + '+ argument0 + ';\n';
 };
 
 // Rounding functions have a single operand.
@@ -272,7 +272,7 @@ Blockly.Arduino['math_on_list'] = function(block) {
           ['function ' + Blockly.Arduino.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
             '  var localList = myList.filter(function (x) ' +
-              '{return typeof x == \'number\';});',
+              '{return typeof(x == \'number\';});',
             '  if (!localList.length) return null;',
             '  localList.sort(function(a, b) {return b - a;});',
             '  if (localList.length % 2 == 0) {',

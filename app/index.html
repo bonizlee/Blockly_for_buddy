@@ -224,7 +224,7 @@
 		<script src="generators/arduino/procedures.js"></script>
 		<script src="generators/arduino/text.js"></script>
 		<script src="generators/arduino/variables.js"></script>
-		<script src="generators/arduino/variables_dynamic.js"></script>
+		<!-- <script src="generators/arduino/variables_dynamic.js"></script> -->
 		<!-- BlocklyDuino specific: addon generator code -->
 		<script src="generators/arduino/arduino_base.js"></script>
 		<script src="generators/arduino/addon/grove.js"></script>
@@ -249,7 +249,7 @@
 		<script type="text/javascript" src="blocks/bd_arduino/view/math_view.js"></script>
 		<script type="text/javascript" src="blocks/bd_arduino/view/text_view.js"></script>
 		<script type="text/javascript" src="blocks/bd_arduino/view/lists_view.js"></script>
-		<!-- <script type="text/javascript" src="blocks/bd_arduino/view/variables_view.js"></script> -->
+		<!-- <script type="text/javascript" src="blocks/bd_arduino/view/variables_view.js"></script>	 -->
 		<!-- <script type="text/javascript" src="blocks/bd_arduino/view/procedures_view.js"></script> -->
 		<script type="text/javascript" src="blocks/bd_arduino/view/logic_view.js"></script>
 		<script type="text/javascript" src="blocks/bd_arduino/view/serial_view.js"></script>
@@ -269,6 +269,7 @@
 		<script type="text/javascript" src="blocks/bd_arduino/code/text_code.js"></script>
 		<script type="text/javascript" src="blocks/bd_arduino/code/lists_code.js"></script>
 		<!-- <script type="text/javascript" src="blocks/bd_arduino/code/variables_code.js"></script> -->
+		<script src="generators/arduino/variables_dynamic.js"></script>
 		<!-- <script type="text/javascript" src="blocks/bd_arduino/code/procedures_code.js"></script> -->
 		<script type="text/javascript" src="blocks/bd_arduino/code/logic_code.js"></script>
 		<script type="text/javascript" src="blocks/bd_arduino/code/serial_code.js"></script>
@@ -933,6 +934,16 @@
 				<block type="ir_recv_serial">
 					<value name="PIN">
 						<shadow type="pins_digital"></shadow>
+					</value>
+					
+				</block>
+				<block type="ir_recv_equal">
+					<value name="PIN">
+						<shadow type="pins_digital"></shadow>
+					</value>
+					<value name="data">
+						<shadow type="math_number">
+						    <field name="NUM">0x89ABCDEF</field></shadow>					
 					</value>
 					
 				</block>

@@ -61,6 +61,35 @@ Blockly.Blocks.ir_recv_serial = {
     }
 };
 
+//红外接收模块-判断接收的按键码是否等于指定值
+Blockly.Blocks.ir_recv_equal = {
+    init: function () {
+        this.setColour(Blockly.Blocks.communicate.HUE);
+        this.appendValueInput("PIN", Number)            
+            .appendField(Blockly.BUDDY_IR_RECEIVE);        
+        this.appendValueInput('data')
+            .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR')
+            .setCheck('Number')
+            .appendField(Blockly.BUDDY_ISEQUALS);
+        this.appendStatementInput('DO')
+            .appendField(Blockly.BUDDY_EQUALS);
+        this.appendStatementInput('DO2')
+            .appendField(Blockly.BUDDY_NOTEQUALS);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.BUDDY_IR_RECIEVE_TOOLTIP);
+    },
+    getVars: function () {
+        return [this.getFieldValue('VAR')];
+    },
+    renameVar: function (oldName, newName) {
+        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+            this.setTitleValue(newName, 'VAR');
+        }
+    }
+};
+
 //红外发射模块（NEC）
 Blockly.Blocks.ir_send_nec = {
     init: function () {

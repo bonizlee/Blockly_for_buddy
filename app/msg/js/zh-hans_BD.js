@@ -1011,7 +1011,9 @@ Blockly.BUDDY_CONTROL_NOINTERRUPTS = '禁止中断';
 //others
 Blockly.BUDDY_WARNING_NOT_DECLARE='该变量未声明';
 Blockly.BUDDY_LENGTH = "获取长度";
+Blockly.BUDDY_ISEQUALS="是否等于";
 Blockly.BUDDY_EQUALS="等于";
+Blockly.BUDDY_NOTEQUALS="不等于";
 Blockly.BUDDY_STARTSWITH="开始于";
 Blockly.BUDDY_ENDSWITH="结尾于";
 Blockly.BUDDY_COMPARETO="比较";

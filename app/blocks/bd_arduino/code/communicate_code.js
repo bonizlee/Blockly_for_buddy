@@ -40,8 +40,7 @@ Blockly.Arduino.ir_recv_serial = function () {
     var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
     var branch = Blockly.Arduino.statementToCode(this, 'DO');
     var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
-    var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'),
-       Blockly.Variables.NAME_TYPE);
+    //var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'),Blockly.Variables.NAME_TYPE);
     Blockly.Arduino.definitions_['include_IRremote'] = '#include <IRremote.h>\n';
     //Blockly.Arduino.definitions_['var_declare'+varName] = 'long '+varName+';\n';
     Blockly.Arduino.definitions_['var_ir_recv' + dropdown_pin] = 'IRrecv irrecv_' + dropdown_pin + '(' + dropdown_pin + ');\ndecode_results results_' + dropdown_pin + ';\n';
@@ -56,12 +55,50 @@ Blockly.Arduino.ir_recv_serial = function () {
     code += '    type=typelist[results_' + dropdown_pin + '.decode_type];\n'
     code += '  }\n';
     code += '  Serial.print("IR TYPE:"+type+"  ");\n';
-    code += '  Serial.println('+variable+',HEX);\n';
+    code += '  Serial.print('+variable+',HEX);\n';
+    code += '  Serial.print("  ");\n';
+    code += '  Serial.println('+variable+');\n';
     code += branch;
     code += '  irrecv_' + dropdown_pin + '.resume();\n'
     code += '} else {\n';
     code += branch2;
     code += '}\n';
+    return code;
+};
+
+//判断接收的按键码是否等于指定值
+Blockly.Arduino.ir_recv_equal = function () {
+    var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    Blockly.Arduino.definitions_['var_declare' + variable] = 'long ' + variable + ';';
+    var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
+    var branch = Blockly.Arduino.statementToCode(this, 'DO');
+    var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
+    //var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'),   Blockly.Variables.NAME_TYPE);
+    var rec_value=Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC) || '0';
+    Blockly.Arduino.definitions_['include_IRremote'] = '#include <IRremote.h>\n';
+    //Blockly.Arduino.definitions_['var_declare'+varName] = 'long '+varName+';\n';
+    Blockly.Arduino.definitions_['var_ir_recv' + dropdown_pin] = 'IRrecv irrecv_' + dropdown_pin + '(' + dropdown_pin + ');\ndecode_results results_' + dropdown_pin + ';\n';
+    Blockly.Arduino.setups_['setup_ir_recv_' + dropdown_pin] = 'irrecv_' + dropdown_pin + '.enableIRIn();';
+    Blockly.Arduino.setups_['serial_rate']='Serial.begin(9600);';
+    var code = "if (irrecv_" + dropdown_pin + ".decode(&results_" + dropdown_pin + ")) {\n"
+    code += '  ' + variable + '=results_' + dropdown_pin + '.value;\n';
+    code += '  String type="UNKNOWN";\n';
+    ////////////////////////////////////////////////////////////////
+    code += '  String typelist[14]={"UNKNOWN", "NEC", "SONY", "RC5", "RC6", "DISH", "SHARP", "PANASONIC", "JVC", "SANYO", "MITSUBISHI", "SAMSUNG", "LG", "WHYNTER"};\n';
+    code += '  if(results_' + dropdown_pin + '.decode_type>=1 && results_' + dropdown_pin + '.decode_type<=13 ){\n';
+    code += '    type=typelist[results_' + dropdown_pin + '.decode_type];\n'
+    code += '  }\n';
+    code += '  Serial.print("IR TYPE:"+type+"  ");\n';
+    code += '  Serial.println('+variable+',HEX);\n';
+    code += '  if('+variable+'=='+rec_value+'){\n';
+    code += '\t\t'+branch;
+   
+    code += '  }\n'
+    code += '  else {\n';
+    code += '\t\t'+branch2;
+    code += '   }\n';    
+    code += '   irrecv_' + dropdown_pin + '.resume();\n'
+    code += ' }\n';
     return code;
 };
 

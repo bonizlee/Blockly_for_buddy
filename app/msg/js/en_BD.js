@@ -585,7 +585,9 @@ Blockly.BUDDY_CONTROL_NOINTERRUPTS = 'nointerrupts';
 //others
 Blockly.BUDDY_WARNING_NOT_DECLARE='This variable is not declared!';
 Blockly.BUDDY_LENGTH = "length of";
+Blockly.BUDDY_ISEQUALS="is equals";
 Blockly.BUDDY_EQUALS="equals";
+Blockly.BUDDY_NOTEQUALS="not equals";
 Blockly.BUDDY_STARTSWITH="startsWith";
 Blockly.BUDDY_ENDSWITH="endsWith";
 Blockly.BUDDY_COMPARETO="compareTo";
